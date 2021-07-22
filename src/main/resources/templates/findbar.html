@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Orders</title>
+</head>
+<body>
+    <header th:insert="fragments.html :: header (title = 'Trouver votre Bar')"></header>
+    <h2>Saisir votre cocktail</h2>
+    <form action="#" th:action="@{/findbar}" th:method="post" th:object="${cocktail}">
+        <input type="text" placeholder="Nom du cocktail" th:field="*{strDrink}"/>
+        <input type="submit" name="find" value="Trouver"/>
+    </form>
+    <div th:if="${!bars.isEmpty()}">
+        <hr/>
+        <h2>Liste des bars</h2>
+        <table>
+            <tr>
+                <th>Nom</th>
+                <th>Ville</th>
+            </tr>
+            <tr th:each ="bar : ${bars}">
+                <td th:utext="${bar.name}"></td>
+                <td th:utext="${bar.city}"></td>
+            </tr>
+        </table>
+    </div>
+    <footer th:insert="fragments.html :: footer"> </footer>
+</body>
+
+</html>

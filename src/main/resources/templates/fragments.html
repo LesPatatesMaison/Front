@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragments</title>
+</head>
+<body>
+    <div th:fragment="header(title)" style="padding-bottom:20px; margin:auto; max-width:fit-content">
+        <h1 th:utext="${title}"></h1>
+    </div>
+    <div th:fragment="footer" style="padding-top:30px; margin:auto; max-width:fit-content">
+        <p>CEFIM - LES PATATES MAISON</p>
+    </div>
+</body>
+</html>
