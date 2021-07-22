@@ -3,6 +3,8 @@ package org.cefim.patatemaison.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class Bar {
@@ -26,5 +28,7 @@ public class Bar {
     private String postcode;
 
     private String city;
+
+    private List<Cocktail> cocktails;
 
 }

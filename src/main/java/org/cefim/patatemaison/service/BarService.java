@@ -1,6 +1,7 @@
 package org.cefim.patatemaison.service;
 
 import org.cefim.patatemaison.entity.Bar;
+import org.cefim.patatemaison.entity.Cocktail;
 import org.cefim.patatemaison.exception.APIException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,9 @@ public class BarService {
     @Value("${msrecherche.url.barinfo}")
     private String barInfoUrl;
 
+    @Value("${msrecherche.url.barinfococktails}")
+    private String barInfoCocktailsUrl;
+
     public List<Bar> getBarsWithCocktailName(String name) throws APIException {
         Bar[] barArray = this.restTemplate.getForObject(String.format("%s/%s", findBarUrl, name), Bar[].class);
 
@@ -35,6 +39,11 @@ public class BarService {
 
         if (bar == null) {
             throw new APIException("Impossible de trouve le bar " + id, HttpStatus.NOT_FOUND);
+        }
+
+        Cocktail[] cocktails = this.restTemplate.getForObject(String.format("%s/%d", barInfoCocktailsUrl, id), Cocktail[].class);
+        if(cocktails != null) {
+            bar.setCocktails(Arrays.asList(cocktails));
         }
 
         return bar;

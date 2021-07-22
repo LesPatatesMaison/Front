@@ -31,9 +31,18 @@
                 <td th:text="${bar.email}"></td>
             </tr>
         </tbody>
-
     </table>
+    <div>
+        <h3>La carte des cocktails</h3>
+        <ul style="display: grid; grid-template-columns: repeat(3, 1fr)">
+            <li th:each ="cocktail : ${bar.cocktails}" >
+                <a th:href="@{/cocktail/{id}(id=${cocktail.idDrink})}" th:utext="${cocktail.strDrink}"></a>
+                <img th:src="${cocktail.strDrinkThumb} + '/preview'" style="display: block"/>
+            </li>
+        </ul>
+    </div>
 </div>
+<hr>
 <div>
     <h3><a th:href="@{/}">Retour</a></h3>
 </div>
