@@ -3,6 +3,8 @@ package org.cefim.patatemaison.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class Cocktail {
@@ -40,5 +42,6 @@ public class Cocktail {
     private String strMeasure13;
     private String strMeasure14;
     private String strMeasure15;
+    private List<Bar> bars;
 
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Information sur votre Cocktail</title>
+</head>
+<body>
+<header th:insert="fragments.html :: header (title = 'Information sur votre Cocktail')"></header>
+<div>
+    <h2 th:utext="${cocktail.strDrink}"></h2>
+    <div>
+        <h3>Ingrédients</h3>
+        <ul>
+            <li th:if="${cocktail.strIngredient1}" th:text="${cocktail.strIngredient1} + ' --> ' + ${cocktail.strMeasure1}"></li>
+            <li th:if="${cocktail.strIngredient2}" th:text="${cocktail.strIngredient2} + ' --> ' + ${cocktail.strMeasure2}"></li>
+            <li th:if="${cocktail.strIngredient3}" th:text="${cocktail.strIngredient3} + ' --> ' + ${cocktail.strMeasure3}"></li>
+            <li th:if="${cocktail.strIngredient4}" th:text="${cocktail.strIngredient4} + ' --> ' + ${cocktail.strMeasure4}"></li>
+            <li th:if="${cocktail.strIngredient5}" th:text="${cocktail.strIngredient5} + ' --> ' + ${cocktail.strMeasure5}"></li>
+            <li th:if="${cocktail.strIngredient6}" th:text="${cocktail.strIngredient6} + ' --> ' + ${cocktail.strMeasure6}"></li>
+            <li th:if="${cocktail.strIngredient7}" th:text="${cocktail.strIngredient7} + ' --> ' + ${cocktail.strMeasure7}"></li>
+            <li th:if="${cocktail.strIngredient8}" th:text="${cocktail.strIngredient8} + ' --> ' + ${cocktail.strMeasure8}"></li>
+            <li th:if="${cocktail.strIngredient9}" th:text="${cocktail.strIngredient9} + ' --> ' + ${cocktail.strMeasure9}"></li>
+            <li th:if="${cocktail.strIngredient10}" th:text="${cocktail.strIngredient10} + ' --> ' + ${cocktail.strMeasure10}"></li>
+            <li th:if="${cocktail.strIngredient11}" th:text="${cocktail.strIngredient11} + ' --> ' + ${cocktail.strMeasure11}"></li>
+            <li th:if="${cocktail.strIngredient12}" th:text="${cocktail.strIngredient12} + ' --> ' + ${cocktail.strMeasure12}"></li>
+            <li th:if="${cocktail.strIngredient13}" th:text="${cocktail.strIngredient13} + ' --> ' + ${cocktail.strMeasure13}"></li>
+            <li th:if="${cocktail.strIngredient14}" th:text="${cocktail.strIngredient14} + ' --> ' + ${cocktail.strMeasure14}"></li>
+            <li th:if="${cocktail.strIngredient15}" th:text="${cocktail.strIngredient15} + ' --> ' + ${cocktail.strMeasure15}"></li>
+        </ul>
+    </div>
+    <div th:if="${cocktail.strInstructionsFR}">
+        <h3>Préparation</h3>
+        <p th:text="${cocktail.strInstructionsFR}"></p>
+    </div>
+    <!--<div>
+        <h3>Les établissements de Vanves proposant ce cocktail</h3>
+        <ul>
+            <li th:each ="bar : ${bars}" >
+                <a th:href="@{/bar/{id}(id=${bar.id})}" th:utext="${bar.name}"></a>
+            </li>
+        </ul>
+    </div>-->
+</div>
+<hr>
+<div>
+    <h3><a th:href="@{/}">Retour</a></h3>
+</div>
+<footer th:insert="fragments.html :: footer"> </footer>
+</body>
+
+</html>
