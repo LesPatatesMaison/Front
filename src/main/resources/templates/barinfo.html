@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Information sur votre Bar</title>
+</head>
+<body>
+<header th:insert="fragments.html :: header (title = 'Information sur votre Bar')"></header>
+<div>
+    <h2 th:utext="${bar.name}"></h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Catégorie</th>
+                <th>Spécialité</th>
+                <th>Adresse</th>
+                <th>téléphone</th>
+                <th>site Web</th>
+                <th>email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td th:text="${bar.category}"></td>
+                <td th:text="${bar.speciality}"></td>
+                <td th:text="${bar.address} + ' ' + ${bar.postcode} + ' ' + ${bar.city}"></td>
+                <td th:text="${bar.phone}"></td>
+                <td th:text="${bar.website}"></td>
+                <td th:text="${bar.email}"></td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+<div>
+    <h3><a th:href="@{/}">Retour</a></h3>
+</div>
+<footer th:insert="fragments.html :: footer"> </footer>
+</body>
+
+</html>
