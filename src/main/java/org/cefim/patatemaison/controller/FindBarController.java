@@ -1,6 +1,7 @@
 package org.cefim.patatemaison.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.cefim.patatemaison.entity.Bar;
 import org.cefim.patatemaison.entity.Cocktail;
 import org.cefim.patatemaison.exception.APIException;
 import org.cefim.patatemaison.service.BarService;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -34,7 +36,12 @@ public class FindBarController {
 
     @PostMapping(params="find")
     public String getBarsWithCocktailName(Model model, @ModelAttribute("cocktail") Cocktail cocktail) throws APIException {
-        model.addAttribute("bars", barService.getBarsWithCocktailName(cocktail.getStrDrink()));
+        List<Bar> bars = barService.getBarsWithCocktailName(cocktail.getStrDrink());
+        model.addAttribute("bars", bars);
+        if(bars.size() == 0)
+        {
+            model.addAttribute("message", "Aucun bar ne propose le cocktail souhaité");
+        }
         return "findbar";
     }
 

@@ -20,6 +20,10 @@
             <li><a th:href="@{/bar/{id}(id=${bar.id})}" th:utext="${bar.name}"></a></li>
         </ul>
     </div>
+    <div th:if="${message}">
+        <hr/>
+        <p th:text="${message}"></p>
+    </div>
     <footer th:insert="fragments.html :: footer"> </footer>
 </body>
 
