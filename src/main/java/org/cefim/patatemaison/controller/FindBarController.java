@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 @Slf4j
 @Controller
-@RequestMapping("/findbar")
 public class FindBarController {
 
     @Autowired

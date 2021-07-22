@@ -9,7 +9,7 @@
 <body>
     <header th:insert="fragments.html :: header (title = 'Trouver votre Bar')"></header>
     <h2>Saisir votre cocktail</h2>
-    <form action="#" th:action="@{/findbar}" th:method="post" th:object="${cocktail}">
+    <form action="#" th:action="@{/}" th:method="post" th:object="${cocktail}">
         <input type="text" placeholder="Nom du cocktail" th:field="*{strDrink}"/>
         <input type="submit" name="find" value="Trouver"/>
     </form>
@@ -17,7 +17,7 @@
         <hr/>
         <h2>Liste des bars ayant votre cocktail</h2>
         <ul th:each ="bar : ${bars}">
-            <li><a th:href="@{/findbar/bar/{id}(id=${bar.id})}" th:utext="${bar.name}"></a></li>
+            <li><a th:href="@{/bar/{id}(id=${bar.id})}" th:utext="${bar.name}"></a></li>
         </ul>
     </div>
     <footer th:insert="fragments.html :: footer"> </footer>
