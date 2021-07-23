@@ -5,11 +5,78 @@
     <title>Fragments</title>
 </head>
 <body>
-    <div th:fragment="header(title)" style="padding-bottom:20px; margin:auto; max-width:fit-content">
-        <h1 th:utext="${title}"></h1>
+    <div th:fragment="header(title)" style="padding-bottom:20px; margin:auto; max-width:fit-content; display: flex; flex-flow: row wrap">
+        <h1 style="width: 49%; text-align: left" th:utext="${title}"></h1>
+        <form id="loginForm" style="display: flex; justify-content: center; align-items: center; width: 49%;">
+            <div>
+                <label for="login">Login</label>
+                <input id="login" />
+            </div>
+            <div>
+                <label for="password">Mot de passe</label>
+                <input id="password"/>
+            </div>
+            <button id="submitLoginForm" style="font-weight: 900; color: #fff; margin-top: 26px" type="submit">🏹</button>
+        </form>
+        <p class="errorMessage" style="display: none; color: red; font-size: .8em; width: 100%; text-align: right">
+            Login ou Mot de Passe incorrect
+        </p>
+        <p class="userName" style="display: none; width: 49%; text-align: right"></p>
     </div>
     <div th:fragment="footer" style="padding-top:30px; margin:auto; max-width:fit-content">
         <p>CEFIM - LES PATATES MAISON</p>
     </div>
+
+    <script th:fragment="axios" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script th:fragment="scriptNoForm">
+        const userDTOJSON = localStorage.getItem("userDTO");
+
+        if(!!userDTOJSON) {
+            const userDTO = JSON.parse(userDTOJSON);
+
+            console.log("userDTO  -> ", userDTO);
+
+            document.querySelector("#loginForm").style.display = "none";
+            document.querySelector(".errorMessage").style.display = "none";
+            document.querySelector(".userName").textContent = `👤 ${userDTO.login}`;
+            document.querySelector(".userName").style.display = "block";
+        }
+    </script>
+    <script th:fragment="script">
+        const baseLoginUrl = "[[${@environment.getProperty('msreservation.url.user.login')}]]";
+
+        document.querySelector("#loginForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const login = document.querySelector("#login").value;
+            const password = document.querySelector("#password").value;
+            const authentication = { login, password };
+
+            axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+            axios.post(baseLoginUrl, authentication)
+            .then(({ data, status, statusText }) => {
+                document.querySelector("#loginForm").style.display = "none";
+                document.querySelector(".errorMessage").style.display = "none";
+                document.querySelector(".userName").textContent = `👤 ${data.login}`;
+                document.querySelector(".userName").style.display = "block";
+                localStorage.setItem("userDTO", JSON.stringify(data));
+                console.log(JSON.parse(localStorage.getItem("userDTO")));
+            })
+            .catch(error => {
+                        if (error.message.includes('401') || error.message.includes('404')) {
+                            console.error("Login ou Mot de Passe incorrect");
+                            document.querySelector(".errorMessage").style.display = "block";
+                        }
+                    }
+                );
+
+
+        })
+
+        // document.querySelector("#submitLoginForm").addEventListener("click", (e) => {
+        //     e.preventDefault();
+        //     console.log(baseLoginUrl + "  5434354")
+        //
+        // })
+    </script>
 </body>
 </html>

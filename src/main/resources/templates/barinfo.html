@@ -8,6 +8,7 @@
 </head>
 <body>
 <header th:insert="fragments.html :: header (title = 'Information sur votre Bar')"></header>
+<th:block th:insert="fragments.html :: scriptNoForm"> </th:block>
 <div>
     <h2 th:utext="${bar.name}"></h2>
     <table>
@@ -47,7 +48,8 @@
     <h3><a th:href="@{/}">Retour</a></h3>
 </div>
 <footer th:insert="fragments.html :: footer"> </footer>
-
+<th:block th:insert="fragments.html :: axios"> </th:block>
+<th:block th:insert="fragments.html :: script"> </th:block>
 </body>
 
 </html>
