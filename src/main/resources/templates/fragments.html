@@ -23,7 +23,11 @@
         <p class="errorMessage" style="display: none; color: red; font-size: .8em; width: 100%; text-align: right; grid-column: 2; grid-row: 2;">
             Login ou Mot de Passe incorrect
         </p>
-        <p class="userName" style="display: none; text-align: right; grid-column: 2; grid-row: 1;"></p>
+        <div class="headerLoggedContainer" style="display: none; justify-content: end; grid-column: 2; grid-row: 1;">
+            <p class="userName" style="text-align: right; font-size: 3rem;"></p>
+            <button class="headerLoggedLeaveButtonr" style="font-size: 1.2rem; margin-left: 2rem">🚪</button>
+        </div>
+
 
         <script>
             const userDTOJSONNoForm = localStorage.getItem("userDTO");
@@ -36,7 +40,7 @@
                 document.querySelector("#loginForm").style.display = "none";
                 document.querySelector(".errorMessage").style.display = "none";
                 document.querySelector(".userName").textContent = `👤 ${userDTO.login}`;
-                document.querySelector(".userName").style.display = "block";
+                document.querySelector(".headerLoggedContainer").style.display = "flex";
 
                 const linkYourReservationsEl = document.querySelector(".linkYourReservations")
                 if(!!linkYourReservationsEl) linkYourReservationsEl.style.display = "block";
@@ -54,6 +58,41 @@
     <script th:fragment="scriptLogin">
         const baseLoginUrl = "[[${@environment.getProperty('msreservation.url.user.login')}]]";
 
+        const headerLoggedContainer = document.querySelector(".headerLoggedContainer");
+
+        headerLoggedContainer.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem("userDTO");
+
+            document.querySelector("#loginForm").style.display = "flex";
+            document.querySelector(".errorMessage").style.display = "none";
+            document.querySelector(".userName").textContent = ``;
+            document.querySelector(".headerLoggedContainer").style.display = "none";
+            document.querySelector("#login").value = "";
+            document.querySelector("#password").value = "";
+
+            const linkYourReservationsEl = document.querySelector(".linkYourReservations")
+            if(!!linkYourReservationsEl) linkYourReservationsEl.style.display = "none";
+
+            const linkReservationUserId = document.querySelector(".reservationUserId");
+            const reservationSubmit = document.querySelector(".reservationSubmit");
+
+            if(!!linkReservationUserId && !!reservationSubmit) {
+                linkReservationUserId.value = null;
+                reservationSubmit.disabled = true;
+            }
+
+            const linkYourReservations = document.querySelector(".linkYourReservations");
+            if(!!linkYourReservations) {
+                linkYourReservations.style.display = "none";
+            }
+
+            const barInfoReservationLink = document.querySelector(".barInfoReservationLink");
+            if(!!barInfoReservationLink) {
+                barInfoReservationLink.style.display = "none";
+            }
+        })
+
         document.querySelector("#loginForm").addEventListener("submit", (e) => {
             e.preventDefault();
             const login = document.querySelector("#login").value;
@@ -66,7 +105,7 @@
                 document.querySelector("#loginForm").style.display = "none";
                 document.querySelector(".errorMessage").style.display = "none";
                 document.querySelector(".userName").textContent = `👤 ${data.login}`;
-                document.querySelector(".userName").style.display = "block";
+                document.querySelector(".headerLoggedContainer").style.display = "flex";
                 localStorage.setItem("userDTO", JSON.stringify(data));
 
                 const linkYourReservationsEl = document.querySelector(".linkYourReservations")
