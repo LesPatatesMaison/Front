@@ -46,7 +46,7 @@
 <hr>
 <div>
     <h3 th:if="${previousBar}"><a th:href="@{/bar/{barId}(barId=${previousBar})}">Retour</a></h3>
-    <h3 th:unless="${previousBar}"><a th:href="@{/}">Retour</a></h3>
+    <h3 th:unless="${previousBar}"><a th:href="@{/}">Accueil</a></h3>
 </div>
 <footer th:insert="fragments.html :: footer"> </footer>
 </body>

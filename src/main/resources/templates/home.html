@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Information sur votre Bar</title>
+</head>
+<body>
+<header th:insert="fragments.html :: header (title = 'Ou sortir ce soir ?')"></header>
+
+<div>
+    <h2>Rechercher un bar par</h2>
+    <a th:href="@{/nameForm}"><button>Nom</button></a>
+    <a th:href="@{/cocktailForm}"><button>Cocktail</button></a>
+</div>
+
+<footer th:insert="fragments.html :: footer"> </footer>
+
+</body>
+
+</html>

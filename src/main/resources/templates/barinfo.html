@@ -44,8 +44,9 @@
 </div>
 <hr>
 <div>
-    <h3 th:if="${previousSearch}"><a th:href="@{/?search={previousSearch}(previousSearch=${previousSearch})}">Retour</a></h3>
-    <h3 th:unless="${previousSearch}"><a th:href="@{/}">Retour</a></h3>
+    <h3 th:if="${previousCocktailSearch}"><a th:href="@{/cocktailForm/?search={previousCocktailSearch}(previousCocktailSearch=${previousCocktailSearch})}">Retour</a></h3>
+    <h3 th:if="${previousBarSearch}"><a th:href="@{/nameForm/?search={previousBarSearch}(previousBarSearch=${previousBarSearch})}">Retour</a></h3>
+    <h3 th:if="${noPreviousSearch}"><a th:href="@{/}">Accueil</a></h3>
 </div>
 <footer th:insert="fragments.html :: footer"> </footer>
 
