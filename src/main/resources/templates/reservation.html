@@ -13,15 +13,30 @@
 
     <h2>Réserver chez <span th:utext="${bar.name}"></span></h2>
 
-    <form action="#" th:action="@{/reservation/savereservation}" th:method="post">
+    <form class="reservationForm" action="#" th:action="@{/reservation/savereservation}" th:method="post">
         <input type="hidden" name="barId" th:value="${bar.id}"/>
         <input type="hidden" name="barName" th:value="${bar.name}"/>
-        <input type="hidden" name="userId" th:value=""/>
+        <input class="reservationUserId" type="hidden" name="userId" th:value=""/>
         <input type="datetime-local" placeholder="date de la réservation" name="dateTime"/>
         <input type="number" min="1" placeholder="Nombre de personnes" name="nbPerson"/>
-        <input type="submit" name="save" value="Enregistrer"/>
+        <input class="reservationSubmit" type="submit" name="save" value="Enregistrer"/>
     </form>
     <footer th:insert="fragments.html :: footer"> </footer>
+
+    <script>
+        const userDTOJSONReservation = localStorage.getItem("userDTO");
+        const linkReservationUserId = document.querySelector(".reservationUserId");
+        const reservationSubmit = document.querySelector(".reservationSubmit");
+
+        if(!!userDTOJSONReservation) {
+            const userDTO = JSON.parse(userDTOJSONReservation);
+            linkReservationUserId.value = userDTO.id;
+            reservationSubmit.disabled = false;
+
+        } else {
+            reservationSubmit.disabled = true;
+        }
+    </script>
 
     <th:block th:insert="fragments.html :: scriptLogin"> </th:block>
 </body>

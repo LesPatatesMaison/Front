@@ -70,6 +70,21 @@
 
                 const linkYourReservationsEl = document.querySelector(".linkYourReservations")
                 if(!!linkYourReservationsEl) linkYourReservationsEl.style.display = "block";
+
+                const linkReservationUserId = document.querySelector(".reservationUserId");
+                const reservationSubmit = document.querySelector(".reservationSubmit");
+
+                if(!!linkReservationUserId && !!reservationSubmit) {
+                    linkReservationUserId.value = data.id;
+                    reservationSubmit.disabled = false;
+                }
+
+                const linkYourReservations = document.querySelector(".linkYourReservations");
+                if(!!linkYourReservations) {
+                    linkYourReservations.style.display = "block";
+                    linkYourReservations.href += data.id;
+                }
+
             })
             .catch(error => {
                         if (error.message.includes('401') || error.message.includes('404')) {
