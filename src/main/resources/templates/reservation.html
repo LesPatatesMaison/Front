@@ -16,6 +16,7 @@
     <form action="#" th:action="@{/reservation/savereservation}" th:method="post">
         <input type="hidden" name="barId" th:value="${bar.id}"/>
         <input type="hidden" name="barName" th:value="${bar.name}"/>
+        <input type="hidden" name="userId" th:value=""/>
         <input type="datetime-local" placeholder="date de la réservation" name="dateTime"/>
         <input type="number" min="1" placeholder="Nombre de personnes" name="nbPerson"/>
         <input type="submit" name="save" value="Enregistrer"/>

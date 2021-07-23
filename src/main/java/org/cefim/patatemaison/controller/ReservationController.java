@@ -50,14 +50,14 @@ public class ReservationController {
             Model model,
             @RequestParam(value="barId") Long barId,
             @RequestParam(value="barName") String barName,
+            @RequestParam(value="userId") Long userId,
             @RequestParam(value="dateTime") String dateTime,
             @RequestParam(value="nbPerson") Integer nbPerson
     ) throws APIException {
         model.addAttribute("reservations", new ArrayList<>());
 
-        // temp
         User user = new User();
-        user.setId(1L);
+        user.setId(userId);
 
         Reservation reservation = new Reservation();
         reservation.setBar(new Bar(barId, barName));
@@ -66,6 +66,6 @@ public class ReservationController {
         reservation.setCreatedAt(LocalDateTime.now());
         reservation.setDateTime(LocalDateTime.parse(dateTime).atZone(ZoneId.systemDefault()));
         reservationService.addReservation(reservation);
-        return "redirect:/bar/" + barId;
+        return "redirect:/reservation/list/" + userId;
     }
 }
