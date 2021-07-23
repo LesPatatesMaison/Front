@@ -5,6 +5,7 @@ import org.cefim.patatemaison.entity.Bar;
 import org.cefim.patatemaison.entity.Cocktail;
 import org.cefim.patatemaison.exception.APIException;
 import org.cefim.patatemaison.service.BarService;
+import org.cefim.patatemaison.service.CocktailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,9 @@ public class FindBarController {
     @Autowired
     private BarService barService;
 
+    @Autowired
+    private CocktailService cocktailService;
+
     @GetMapping()
     public String home() {
         return "home";
@@ -32,15 +36,24 @@ public class FindBarController {
         if(search == null)
         {
             model.addAttribute("bars", new ArrayList<>());
+            model.addAttribute("matchingCocktails", new ArrayList<>());
         }
         else
         {
+            model.addAttribute("previousCocktailSearch", search);
+
+            List<Cocktail> matchingCocktails = cocktailService.getCocktailByName(search);
+            model.addAttribute("matchingCocktails", matchingCocktails);
+            if(matchingCocktails.size() == 0)
+            {
+                model.addAttribute("message1", "Aucun cocktail ne correspond à votre recherche");
+            }
+
             List<Bar> bars = barService.getBarsWithCocktailName(search);
             model.addAttribute("bars", bars);
-            model.addAttribute("previousCocktailSearch", search);
             if(bars.size() == 0)
             {
-                model.addAttribute("message", "Aucun bar ne propose le cocktail souhaité");
+                model.addAttribute("message2", "Aucun bar ne propose le cocktail souhaité");
             }
         }
         return "findbar";
@@ -83,13 +96,21 @@ public class FindBarController {
 
     @PostMapping(path="cocktailForm", params="find")
     public String getBarsWithCocktailName(Model model, @ModelAttribute("cocktail") Cocktail cocktail) throws APIException {
+        model.addAttribute("previousCocktailSearch", cocktail.getStrDrink());
+        List<Cocktail> matchingCocktails = cocktailService.getCocktailByName(cocktail.getStrDrink());
+        model.addAttribute("matchingCocktails", matchingCocktails);
+        if(matchingCocktails.size() == 0)
+        {
+            model.addAttribute("message1", "Aucun cocktail ne correspond à votre recherche");
+        }
+
         List<Bar> bars = barService.getBarsWithCocktailName(cocktail.getStrDrink());
         model.addAttribute("bars", bars);
-        model.addAttribute("previousCocktailSearch", cocktail.getStrDrink());
         if(bars.size() == 0)
         {
-            model.addAttribute("message", "Aucun bar ne propose le cocktail souhaité");
+            model.addAttribute("message2", "Aucun bar ne propose le cocktail souhaité");
         }
+
         return "findbar";
     }
 

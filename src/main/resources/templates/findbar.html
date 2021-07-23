@@ -13,6 +13,21 @@
         <input type="text" th:placeholder="${previousCocktailSearch} ?: 'Nom du cocktail'" th:field="*{strDrink}"/>
         <input type="submit" name="find" value="Trouver"/>
     </form>
+    <div th:if="${!matchingCocktails.isEmpty()}">
+        <hr/>
+        <th:block th:if="${matchingCocktails.size() == 1}">
+            <span>Correspondance : </span>
+            <span th:each="cocktail : ${matchingCocktails}" th:text="${cocktail.strDrink}"></span>
+        </th:block>
+        <th:block th:if="${matchingCocktails.size() > 1}">
+            <span>Correspondances : </span>
+            <span th:each="cocktail : ${matchingCocktails}" th:text="${cocktail.strDrink} + ' // '"></span>
+        </th:block>
+    </div>
+    <div th:if="${message1}">
+        <hr/>
+        <p th:text="${message1}"></p>
+    </div>
     <div th:if="${!bars.isEmpty()}">
         <hr/>
         <h2>Liste des bars ayant votre cocktail</h2>
@@ -22,9 +37,9 @@
             </li>
         </ul>
     </div>
-    <div th:if="${message}">
+    <div th:if="${message2}">
         <hr/>
-        <p th:text="${message}"></p>
+        <p th:text="${message2}"></p>
     </div>
     <footer th:insert="fragments.html :: footer"> </footer>
 </body>
