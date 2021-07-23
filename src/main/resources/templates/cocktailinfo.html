@@ -35,18 +35,19 @@
         <h3>Préparation</h3>
         <p th:text="${cocktail.strInstructionsFR}"></p>
     </div>
-    <!--<div>
+    <div>
         <h3>Les établissements de Vanves proposant ce cocktail</h3>
         <ul>
             <li th:each ="bar : ${bars}" >
                 <a th:href="@{/bar/{id}(id=${bar.id})}" th:utext="${bar.name}"></a>
             </li>
         </ul>
-    </div>-->
+    </div>
 </div>
 <hr>
 <div>
-    <h3><a th:href="@{/}">Retour</a></h3>
+    <h3 th:if="${previousBar}"><a th:href="@{/bar/{barId}(barId=${previousBar})}">Retour</a></h3>
+    <h3 th:unless="${previousBar}"><a th:href="@{/}">Accueil</a></h3>
 </div>
 <footer th:insert="fragments.html :: footer"> </footer>
 <th:block th:insert="fragments.html :: axios"> </th:block>
