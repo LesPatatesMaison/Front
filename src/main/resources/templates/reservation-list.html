@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Lists de vos Reservations</title>
+</head>
+<body>
+    <header th:insert="fragments.html :: header (title = 'Liste de vos reservations')"></header>
+    <div th:if="${!reservations.isEmpty()}">
+        <h3>Vos réservations</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Référence</th>
+                <th>Bar</th>
+                <th>Horaire</th>
+                <th>Nombre Personnes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reservation : ${reservations}">
+                <td th:text="${reservation.id}"></td>
+                <td th:text="${reservation.bar.name}"></td>
+                <td th:text="${reservation.dateTime}"></td>
+                <td th:text="${reservation.nbPerson}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<hr>
+<footer th:insert="fragments.html :: footer"> </footer>
+
+</body>
+
+</html>

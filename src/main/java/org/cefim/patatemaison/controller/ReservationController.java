@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -36,10 +37,11 @@ public class ReservationController {
         return "reservation";
     }
 
-    @GetMapping("{id}")
-    public String getReservationInfo(Model model, @PathVariable("id") int id) throws APIException {
-        //model.addAttribute("cocktail", cocktailService.getCocktailInfo(id));
-        return "reservation";
+    @GetMapping("list/{id}")
+    public String getReservationInfo(Model model, @PathVariable("id") int userId) throws APIException {
+        List<Reservation> reservations = reservationService.getReservations(userId);
+        model.addAttribute("reservations", reservations);
+        return "reservation-list";
     }
 
     @PostMapping(path="savereservation", params="save")
