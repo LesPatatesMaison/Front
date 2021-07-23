@@ -16,7 +16,7 @@ import java.util.List;
 public class ReservationService {
     private final RestTemplate restTemplate = new RestTemplate();
 
-    @Value("${msreservation.url.user.byId.reservation.recent}")
+    @Value("${msreservation.url.user.byId.reservation}")
     private String reservationInfoUrl;
 
     @Value("${msreservation.url.reservation}")
