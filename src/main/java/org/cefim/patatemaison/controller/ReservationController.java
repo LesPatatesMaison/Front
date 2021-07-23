@@ -3,6 +3,7 @@ package org.cefim.patatemaison.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.cefim.patatemaison.entity.Bar;
 import org.cefim.patatemaison.entity.Reservation;
+import org.cefim.patatemaison.entity.User;
 import org.cefim.patatemaison.exception.APIException;
 import org.cefim.patatemaison.service.CocktailService;
 import org.cefim.patatemaison.service.ReservationService;
@@ -53,9 +54,15 @@ public class ReservationController {
             @RequestParam(value="nbPerson") Integer nbPerson
     ) throws APIException {
         model.addAttribute("reservations", new ArrayList<>());
+
+        // temp
+        User user = new User();
+        user.setId(1L);
+
         Reservation reservation = new Reservation();
         reservation.setBar(new Bar(barId, barName));
         reservation.setNbPerson(nbPerson);
+        reservation.setUser(user);
         reservation.setCreatedAt(LocalDateTime.now());
         reservation.setDateTime(LocalDateTime.parse(dateTime).atZone(ZoneId.systemDefault()));
         reservationService.addReservation(reservation);

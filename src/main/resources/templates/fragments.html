@@ -8,7 +8,6 @@
     <div th:fragment="header(title)" style="padding-bottom:20px; margin:auto; max-width:fit-content; display: flex; flex-flow: row wrap">
         <div class="titles" style="width: 49%; display: flex; flex-flow: column nowrap; align-items: start">
             <h1 style="text-align: left" th:utext="${title}"></h1>
-            <h3 style="text-align: left" th:utext="${title}"><a th:href="@{/}">Accueil</a></h3>
         </div>
 
         <form id="loginForm" style="display: flex; justify-content: center; align-items: center; width: 49%;">
@@ -48,6 +47,7 @@
 
     <div th:fragment="footer" style="padding-top:30px; margin:auto; max-width:fit-content">
         <p>CEFIM - LES PATATES MAISON</p>
+        <a th:href="@{/}">Accueil</a>
     </div>
 
     <script th:fragment="axios" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

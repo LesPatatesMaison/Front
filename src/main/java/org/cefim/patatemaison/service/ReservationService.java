@@ -19,6 +19,9 @@ public class ReservationService {
     @Value("${msreservation.url.user.byId.reservation.recent}")
     private String reservationInfoUrl;
 
+    @Value("${msreservation.url.reservation}")
+    private String reservationUrl;
+
     public List<Reservation> getReservations(int id) throws APIException {
         Reservation[] reservationArray = this.restTemplate.getForObject(String.format(reservationInfoUrl, id), Reservation[].class);
         if (reservationArray == null) {
@@ -29,6 +32,7 @@ public class ReservationService {
     }
 
     public void addReservation(Reservation reservation) {
-
+        Reservation resa =
+                restTemplate.postForObject(reservationUrl, reservation, Reservation.class);
     }
 }
