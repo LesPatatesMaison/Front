@@ -55,10 +55,10 @@ public class ReservationController {
                             resa.getDateTime().toLocalDateTime().getMonthValue(),
                             resa.getDateTime().toLocalDateTime().getYear()
                     ),
-                    resa.getDateTime().toLocalDateTime().getHour() + ":" + resa.getDateTime().toLocalDateTime().getMinute(),
+                    resa.getDateTime().toLocalDateTime().plusHours(2).getHour() + ":" + resa.getDateTime().toLocalDateTime().getMinute(),
                     resa.getNbPerson()
             );
-        }).collect(Collectors.toList());
+        }).sorted().collect(Collectors.toList());
 
         model.addAttribute("reservations", reservationsDto);
         return "reservation-list";
