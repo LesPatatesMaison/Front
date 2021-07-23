@@ -18,6 +18,9 @@ public class BarService {
     @Value("${msrecherche.url.findbars}")
     private String findBarUrl;
 
+    @Value("${msrecherche.url.findbarscocktailid}")
+    private String findBarCocktailIdUrl;
+
     @Value("${msrecherche.url.barinfo}")
     private String barInfoUrl;
 
@@ -25,7 +28,18 @@ public class BarService {
     private String barInfoCocktailsUrl;
 
     public List<Bar> getBarsWithCocktailName(String name) throws APIException {
-        Bar[] barArray = this.restTemplate.getForObject(String.format("%s/%s", findBarUrl, name), Bar[].class);
+        System.out.println(String.format("%s%s", findBarUrl, name));
+        Bar[] barArray = this.restTemplate.getForObject(String.format("%s%s", findBarUrl, name), Bar[].class);
+
+        if (barArray == null) {
+            throw new APIException("Pas de Bar trouvé", HttpStatus.NOT_FOUND);
+        }
+
+        return Arrays.asList(barArray);
+    }
+
+    public List<Bar> getBarsWithCocktailId(int cocktailId) throws APIException {
+        Bar[] barArray = this.restTemplate.getForObject(String.format("%s%d", findBarCocktailIdUrl, cocktailId), Bar[].class);
 
         if (barArray == null) {
             throw new APIException("Pas de Bar trouvé", HttpStatus.NOT_FOUND);

@@ -34,14 +34,14 @@
         <h3>Préparation</h3>
         <p th:text="${cocktail.strInstructionsFR}"></p>
     </div>
-    <!--<div>
+    <div>
         <h3>Les établissements de Vanves proposant ce cocktail</h3>
         <ul>
             <li th:each ="bar : ${bars}" >
                 <a th:href="@{/bar/{id}(id=${bar.id})}" th:utext="${bar.name}"></a>
             </li>
         </ul>
-    </div>-->
+    </div>
 </div>
 <hr>
 <div>
