@@ -8,6 +8,7 @@
 </head>
 <body>
 <header th:insert="fragments.html :: header (title = 'Trouver votre Bar')"></header>
+<th:block th:insert="fragments.html :: scriptNoForm"> </th:block>
 <h2>Saisir un nom</h2>
 <form action="#" th:action="@{/nameForm}" th:method="post" th:object="${bar}">
     <input type="text" th:placeholder="${previousBarSearch} ?: 'Nom du bar'" th:field="*{name}"/>
@@ -27,6 +28,8 @@
     <p th:text="${message}"></p>
 </div>
 <footer th:insert="fragments.html :: footer"> </footer>
+<th:block th:insert="fragments.html :: axios"> </th:block>
+<th:block th:insert="fragments.html :: script"> </th:block>
 </body>
 
 </html>

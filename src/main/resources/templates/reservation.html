@@ -8,6 +8,7 @@
 </head>
 <body>
     <header th:insert="fragments.html :: header (title = 'Faire une réservation dans votre Bar')"></header>
+    <th:block th:insert="fragments.html :: scriptNoForm"> </th:block>
     <h2>Réserver chez <span th:utext="${bar.name}"></span></h2>
     <form action="#" th:action="@{/reservation/savereservation}" th:method="post">
         <input type="hidden" name="barId" th:value="${bar.id}"/>
@@ -17,6 +18,8 @@
         <input type="submit" name="save" value="Enregistrer"/>
     </form>
     <footer th:insert="fragments.html :: footer"> </footer>
+    <th:block th:insert="fragments.html :: axios"> </th:block>
+    <th:block th:insert="fragments.html :: script"> </th:block>
 </body>
 
 </html>

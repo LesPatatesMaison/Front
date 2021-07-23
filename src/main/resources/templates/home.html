@@ -8,6 +8,7 @@
 </head>
 <body>
 <header th:insert="fragments.html :: header (title = 'Ou sortir ce soir ?')"></header>
+<th:block th:insert="fragments.html :: scriptNoForm"> </th:block>
 
 <div>
     <h2>Rechercher un bar par</h2>
@@ -16,7 +17,8 @@
 </div>
 
 <footer th:insert="fragments.html :: footer"> </footer>
-
+<th:block th:insert="fragments.html :: axios"> </th:block>
+<th:block th:insert="fragments.html :: script"> </th:block>
 </body>
 
 </html>
