@@ -5,10 +5,11 @@
     <title>Fragments</title>
 </head>
 <body>
-    <div th:fragment="header(title)" style="padding-bottom:20px; margin:auto; max-width:fit-content; display: flex; flex-flow: row wrap">
-        <h1 style="text-align: left; width: 49%;" th:utext="${title}"></h1>
+    <div th:fragment="header(title)" style="padding-bottom:20px; width: 100%; display: grid;
+                                            grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, auto);">
+        <h1 style="text-align: left; grid-column: 1; grid-row: 1;" th:utext="${title}"></h1>
 
-        <form id="loginForm" style="display: flex; justify-content: center; align-items: center; width: 49%;">
+        <form id="loginForm" style="display: flex; justify-content: center; align-items: center; grid-column: 2; grid-row: 1;">
             <div>
                 <label for="login">Login</label>
                 <input id="login" />
@@ -19,10 +20,10 @@
             </div>
             <button id="submitLoginForm" style="font-weight: 900; color: #fff; margin-top: 26px" type="submit">🏹</button>
         </form>
-        <p class="errorMessage" style="display: none; color: red; font-size: .8em; width: 100%; text-align: right">
+        <p class="errorMessage" style="display: none; color: red; font-size: .8em; width: 100%; text-align: right; grid-column: 2; grid-row: 2;">
             Login ou Mot de Passe incorrect
         </p>
-        <p class="userName" style="display: none; width: 49%; text-align: right"></p>
+        <p class="userName" style="display: none; text-align: right; grid-column: 2; grid-row: 1;"></p>
 
         <script>
             const userDTOJSONNoForm = localStorage.getItem("userDTO");
