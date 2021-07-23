@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Réserver votre Bar</title>
+</head>
+<body>
+    <header th:insert="fragments.html :: header (title = 'Faire une réservation dans votre Bar')"></header>
+    <h2>Réserver chez <span th:utext="${bar.name}"></span></h2>
+    <form action="#" th:action="@{/reservation/savereservation}" th:method="post">
+        <input type="hidden" name="barId" th:value="${bar.id}"/>
+        <input type="hidden" name="barName" th:value="${bar.name}"/>
+        <input type="datetime-local" placeholder="date de la réservation" name="dateTime"/>
+        <input type="number" min="1" placeholder="Nombre de personnes" name="nbPerson"/>
+        <input type="submit" name="save" value="Enregistrer"/>
+    </form>
+    <footer th:insert="fragments.html :: footer"> </footer>
+</body>
+
+</html>
