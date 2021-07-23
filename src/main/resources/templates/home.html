@@ -7,8 +7,9 @@
     <title>Information sur votre Bar</title>
 </head>
 <body>
+<th:block th:insert="fragments.html :: axios"> </th:block>
+
 <header th:insert="fragments.html :: header (title = 'Ou sortir ce soir ?')"></header>
-<th:block th:insert="fragments.html :: scriptNoForm"> </th:block>
 
 <div>
     <h2>Rechercher un bar par</h2>
@@ -17,12 +18,30 @@
 </div>
 <hr>
 <div>
-    <a th:href="@{/reservation/list/1}">Voir vos réservations</a>
+    <a class="linkYourReservations" th:href="@{/reservation/list/}">Voir vos réservations</a>
 </div>
 
 <footer th:insert="fragments.html :: footer"> </footer>
-<th:block th:insert="fragments.html :: axios"> </th:block>
-<th:block th:insert="fragments.html :: script"> </th:block>
+
+<th:block th:insert="fragments.html :: scriptLogin"> </th:block>
+
+<script>
+    const userDTOJSONHome = localStorage.getItem("userDTO");
+    const linkYourReservations = document.querySelector(".linkYourReservations");
+
+    if(!!userDTOJSONHome) {
+        const userDTO = JSON.parse(userDTOJSONHome);
+
+        linkYourReservations.style.display = "block";
+        console.log(linkYourReservations.href)
+        linkYourReservations.href += userDTO.id;
+
+        console.log(linkYourReservations.href)
+
+    } else {
+        document.querySelector(".linkYourReservations").style.display = "none";
+    }
+</script>
 </body>
 
 </html>

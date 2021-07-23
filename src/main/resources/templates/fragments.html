@@ -26,27 +26,33 @@
             Login ou Mot de Passe incorrect
         </p>
         <p class="userName" style="display: none; width: 49%; text-align: right"></p>
+
+        <script>
+            const userDTOJSONNoForm = localStorage.getItem("userDTO");
+
+            if(!!userDTOJSONNoForm) {
+                const userDTO = JSON.parse(userDTOJSONNoForm);
+
+                console.log("userDTO  -> ", userDTO);
+
+                document.querySelector("#loginForm").style.display = "none";
+                document.querySelector(".errorMessage").style.display = "none";
+                document.querySelector(".userName").textContent = `👤 ${userDTO.login}`;
+                document.querySelector(".userName").style.display = "block";
+
+                const linkYourReservationsEl = document.querySelector(".linkYourReservations")
+                if(!!linkYourReservationsEl) linkYourReservationsEl.style.display = "block";
+            }
+        </script>
     </div>
+
     <div th:fragment="footer" style="padding-top:30px; margin:auto; max-width:fit-content">
         <p>CEFIM - LES PATATES MAISON</p>
     </div>
 
     <script th:fragment="axios" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script th:fragment="scriptNoForm">
-        const userDTOJSON = localStorage.getItem("userDTO");
 
-        if(!!userDTOJSON) {
-            const userDTO = JSON.parse(userDTOJSON);
-
-            console.log("userDTO  -> ", userDTO);
-
-            document.querySelector("#loginForm").style.display = "none";
-            document.querySelector(".errorMessage").style.display = "none";
-            document.querySelector(".userName").textContent = `👤 ${userDTO.login}`;
-            document.querySelector(".userName").style.display = "block";
-        }
-    </script>
-    <script th:fragment="script">
+    <script th:fragment="scriptLogin">
         const baseLoginUrl = "[[${@environment.getProperty('msreservation.url.user.login')}]]";
 
         document.querySelector("#loginForm").addEventListener("submit", (e) => {
@@ -63,7 +69,9 @@
                 document.querySelector(".userName").textContent = `👤 ${data.login}`;
                 document.querySelector(".userName").style.display = "block";
                 localStorage.setItem("userDTO", JSON.stringify(data));
-                console.log(JSON.parse(localStorage.getItem("userDTO")));
+
+                const linkYourReservationsEl = document.querySelector(".linkYourReservations")
+                if(!!linkYourReservationsEl) linkYourReservationsEl.style.display = "block";
             })
             .catch(error => {
                         if (error.message.includes('401') || error.message.includes('404')) {
@@ -72,15 +80,7 @@
                         }
                     }
                 );
-
-
         })
-
-        // document.querySelector("#submitLoginForm").addEventListener("click", (e) => {
-        //     e.preventDefault();
-        //     console.log(baseLoginUrl + "  5434354")
-        //
-        // })
     </script>
 </body>
 </html>

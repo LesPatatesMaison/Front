@@ -7,8 +7,10 @@
     <title>Trouver votre Bar</title>
 </head>
 <body>
+    <th:block th:insert="fragments.html :: axios"> </th:block>
+
     <header th:insert="fragments.html :: header (title = 'Trouver votre Bar')"></header>
-    <th:block th:insert="fragments.html :: scriptNoForm"> </th:block>
+
     <h2>Saisir votre cocktail</h2>
     <form action="#" th:action="@{/cocktailForm}" th:method="post" th:object="${cocktail}">
         <input type="text" th:placeholder="${previousCocktailSearch} ?: 'Nom du cocktail'" th:field="*{strDrink}"/>
@@ -43,8 +45,8 @@
         <p th:text="${message2}"></p>
     </div>
     <footer th:insert="fragments.html :: footer"> </footer>
-    <th:block th:insert="fragments.html :: axios"> </th:block>
-    <th:block th:insert="fragments.html :: script"> </th:block>
+
+    <th:block th:insert="fragments.html :: scriptLogin"> </th:block>
 </body>
 
 </html>

@@ -7,6 +7,8 @@
     <title>Lists de vos Reservations</title>
 </head>
 <body>
+    <th:block th:insert="fragments.html :: axios"> </th:block>
+
     <header th:insert="fragments.html :: header (title = 'Liste de vos reservations')"></header>
     <div th:if="${!reservations.isEmpty()}">
         <h3>Vos réservations</h3>
@@ -31,6 +33,7 @@
     </div>
 <hr>
 <footer th:insert="fragments.html :: footer"> </footer>
+<th:block th:insert="fragments.html :: scriptLogin"> </th:block>
 
 </body>
 
