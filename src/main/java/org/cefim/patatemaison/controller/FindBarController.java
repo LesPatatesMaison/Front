@@ -88,9 +88,6 @@ public class FindBarController {
         else if(allRequestParams.containsKey("previousCocktailSearch")) {
             model.addAttribute("previousCocktailSearch", allRequestParams.get("previousCocktailSearch"));
         }
-        else {
-            model.addAttribute("noPreviousSearch", true);
-        }
         return "barinfo";
     }
 

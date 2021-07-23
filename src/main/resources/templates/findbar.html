@@ -18,11 +18,15 @@
         <hr/>
         <th:block th:if="${matchingCocktails.size() == 1}">
             <span>Correspondance : </span>
-            <span th:each="cocktail : ${matchingCocktails}" th:text="${cocktail.strDrink}"></span>
+            <span th:each="cocktail : ${matchingCocktails}">
+                <a th:href="@{/cocktail/{cocktailId}(cocktailId=${cocktail.idDrink})}" th:text="${cocktail.strDrink}"></a>
+            </span>
         </th:block>
         <th:block th:if="${matchingCocktails.size() > 1}">
             <span>Correspondances : </span>
-            <span th:each="cocktail : ${matchingCocktails}" th:text="${cocktail.strDrink} + ' // '"></span>
+            <span th:each="cocktail : ${matchingCocktails}">
+                <a th:href="@{/cocktail/{cocktailId}(cocktailId=${cocktail.idDrink})}" th:text="${cocktail.strDrink} + ' // '"></a>
+            </span>
         </th:block>
     </div>
     <div th:if="${message1}">
