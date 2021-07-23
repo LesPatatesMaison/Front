@@ -1,6 +1,7 @@
 package org.cefim.patatemaison.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.cefim.patatemaison.dto.ReservationDto;
 import org.cefim.patatemaison.entity.Bar;
 import org.cefim.patatemaison.entity.Reservation;
 import org.cefim.patatemaison.entity.User;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -41,7 +43,24 @@ public class ReservationController {
     @GetMapping("list/{id}")
     public String getReservationInfo(Model model, @PathVariable("id") int userId) throws APIException {
         List<Reservation> reservations = reservationService.getReservations(userId);
-        model.addAttribute("reservations", reservations);
+
+        List<ReservationDto> reservationsDto = reservations.stream().map(resa -> {
+            return new ReservationDto(
+                    resa.getId(),
+                    resa.getBar(),
+                    resa.getDateTime().toLocalDateTime(),
+                    String.format(
+                            "%02d/%02d/%04d",
+                            resa.getDateTime().toLocalDateTime().getDayOfMonth(),
+                            resa.getDateTime().toLocalDateTime().getMonthValue(),
+                            resa.getDateTime().toLocalDateTime().getYear()
+                    ),
+                    resa.getDateTime().toLocalDateTime().getHour() + ":" + resa.getDateTime().toLocalDateTime().getMinute(),
+                    resa.getNbPerson()
+            );
+        }).collect(Collectors.toList());
+
+        model.addAttribute("reservations", reservationsDto);
         return "reservation-list";
     }
 

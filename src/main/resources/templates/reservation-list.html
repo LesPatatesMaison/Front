@@ -25,7 +25,8 @@
             <tr th:each="reservation : ${reservations}">
                 <td th:text="${reservation.id}"></td>
                 <td th:text="${reservation.bar.name}"></td>
-                <td th:text="${reservation.dateTime}"></td>
+                <td th:text="${reservation.date} + ' ' + ${reservation.time}"></td>
+                <!--<td th:text="${#dates.format(reservation.dateTime, 'dd-MM-yyyy HH:mm')}"></td>-->
                 <td th:text="${reservation.nbPerson}"></td>
             </tr>
             </tbody>

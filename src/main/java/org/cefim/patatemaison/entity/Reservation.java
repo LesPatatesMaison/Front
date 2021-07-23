@@ -29,7 +29,6 @@ public class Reservation implements Serializable {
 
     private LocalDateTime createdAt;
 
-
     public ZonedDateTime getDateTime() {
         return dateTime == null ? null : ZonedDateTime.from(dateTime);
     }
