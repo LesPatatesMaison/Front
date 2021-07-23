@@ -10,7 +10,7 @@
     <header th:insert="fragments.html :: header (title = 'Trouver votre Bar')"></header>
     <h2>Saisir votre cocktail</h2>
     <form action="#" th:action="@{/}" th:method="post" th:object="${cocktail}">
-        <input type="text" placeholder="Nom du cocktail" th:field="*{strDrink}"/>
+        <input type="text" th:placeholder="${previousCocktailSearch} ?: 'Nom du cocktail'" th:field="*{strDrink}"/>
         <input type="submit" name="find" value="Trouver"/>
     </form>
     <div th:if="${!bars.isEmpty()}">
@@ -18,7 +18,7 @@
         <h2>Liste des bars ayant votre cocktail</h2>
         <ul>
             <li th:each ="bar : ${bars}">
-                <a th:href="@{/bar/{id}(id=${bar.id})}" th:utext="${bar.name}"></a>
+                <a th:href="@{/bar/{id}?search={inputValue}(id=${bar.id}, inputValue=${previousCocktailSearch})}" th:utext="${bar.name}"></a>
             </li>
         </ul>
     </div>

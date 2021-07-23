@@ -22,15 +22,31 @@ public class FindBarController {
 
 
     @GetMapping()
-    public String getEmpty(Model model) {
+    public String getEmpty(Model model, @RequestParam(required = false) String search) throws APIException {
         model.addAttribute("cocktail", new Cocktail());
-        model.addAttribute("bars", new ArrayList<>());
+        if(search == null)
+        {
+            model.addAttribute("bars", new ArrayList<>());
+        }
+        else
+        {
+            List<Bar> bars = barService.getBarsWithCocktailName(search);
+            model.addAttribute("bars", bars);
+            model.addAttribute("previousCocktailSearch", search);
+            if(bars.size() == 0)
+            {
+                model.addAttribute("message", "Aucun bar ne propose le cocktail souhaité");
+            }
+        }
         return "findbar";
     }
 
     @GetMapping("bar/{id}")
-    public String getBarInfo(Model model, @PathVariable("id") int id) throws APIException {
+    public String getBarInfo(Model model, @PathVariable("id") int id, @RequestParam(required = false) String search) throws APIException {
         model.addAttribute("bar", barService.getBarInfo(id));
+        if(search != null) {
+            model.addAttribute("previousSearch", search);
+        }
         return "barinfo";
     }
 
@@ -38,6 +54,7 @@ public class FindBarController {
     public String getBarsWithCocktailName(Model model, @ModelAttribute("cocktail") Cocktail cocktail) throws APIException {
         List<Bar> bars = barService.getBarsWithCocktailName(cocktail.getStrDrink());
         model.addAttribute("bars", bars);
+        model.addAttribute("previousCocktailSearch", cocktail.getStrDrink());
         if(bars.size() == 0)
         {
             model.addAttribute("message", "Aucun bar ne propose le cocktail souhaité");
