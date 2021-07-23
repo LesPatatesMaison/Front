@@ -14,11 +14,17 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationDto {
+public class ReservationDto implements Comparable<ReservationDto> {
     private Long id;
     private Bar bar;
     private LocalDateTime dateTime;
     private String date;
     private String time;
     private Integer nbPerson;
+
+
+    @Override
+    public int compareTo(ReservationDto o) {
+        return this.dateTime.compareTo(o.getDateTime());
+    }
 }
