@@ -9,7 +9,7 @@ import java.util.List;
 @Setter
 public class Bar {
 
-    private int id;
+    private Long id;
 
     private String name;
 
